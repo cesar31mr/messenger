@@ -21,6 +21,24 @@ Para ejecutar el proyecto y validar que se instaló de manera correcta se usó e
 
 `ng serve`
 
+Para crear un componente en la carpeta "components" se usará el siguiente comando:
+
+<Este comando quedó obsoleto>:
+`ng g c components/registro --spec=false`
+
+<Ahora se usará este otro>:
+`ng g c components/registro --skip-tests`
+
+
+
+******************************************************************************************************************************
+******************************************************************************************************************************
+******************************************************************************************************************************
+******************************************************************************************************************************
+
+
+
+
 # Front
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
