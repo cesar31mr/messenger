@@ -1,13 +1,14 @@
-var body_parser = require("body-parser");
-var mongoose = require("mongoose");
-var port = process.env.PORT || 4201;
-var express = require("express");
+const body_parser = require("body-parser");
+const mongoose = require("mongoose");
+const port = process.env.PORT || 4201;
+const express = require("express");
 
-var user_routes = require("./routes/user_route");
+const user_routes = require("./routes/user_route");
+const message_routes = require('./routes/message_route');
 
-var app = express();
-var server = require("http").createServer(app);
-var io = require("socket.io")(server, {
+const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
     cors: {
         origin: '*'
     }
@@ -34,5 +35,6 @@ app.use(body_parser.urlencoded({ extended: true }));
 app.use(body_parser.json());
 
 app.use("/api", user_routes);
+app.use("/api", message_routes);
 
 module.exports = app;
