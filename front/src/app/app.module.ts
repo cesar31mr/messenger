@@ -9,11 +9,13 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
 
 import { appRoutingProviders, routing } from "./app.routing";
+import { MessengerComponent } from './components/messenger/messenger.component';
 @NgModule({
   declarations: [
     AppComponent,
     RegistroComponent,
-    LoginComponent
+    LoginComponent,
+    MessengerComponent
   ],
   imports: [
     BrowserModule,
