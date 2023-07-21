@@ -10,12 +10,18 @@ import { GLOBAL } from 'src/app/services/GLOBAL';
 export class MessengerComponent implements OnInit{
 
   public usuarios: any;
-  public url : string;
+  public get_img : string;
+  public user_select: any;
+  public mensajes: any;
+  public identity: any;
+  public de: any;
 
   constructor(
     private _userService: UserService
   ){
-    this.url = GLOBAL.url;
+    this.get_img = GLOBAL.get_img;
+    this.identity = this._userService.getIdentity();
+    this.de = this.identity._id;
   }
 
   ngOnInit(): void {
@@ -23,6 +29,26 @@ export class MessengerComponent implements OnInit{
       response => {
         const res : any = response;
         this.usuarios = res.users;
+      }, error => {
+
+      }
+    )
+  }
+
+  listar(id: any){
+    this._userService.get_user(id).subscribe(
+      response => {
+        const res : any = response;
+        this.user_select = res.user;
+
+        this._userService.get_message(this.de, id).subscribe(
+          response => {
+            const msm : any = response;
+            this.mensajes = msm.messages;
+          }, error => {
+
+          }
+        )
       }, error => {
 
       }
