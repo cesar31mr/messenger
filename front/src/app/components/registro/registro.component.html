@@ -12,24 +12,27 @@
                 <p class="text-center mb-6">Regístrate para iniciar una conversación</p>
 
                 <!-- Form -->
-                <form class="mb-6">
+                <form class="mb-6" #registroForm="ngForm" (ngSubmit)="onSubmit(registroForm)">
 
                     <!-- Name -->
                     <div class="form-group">
                         <label for="name" class="sr-only">Nombre</label>
-                        <input type="text" class="form-control form-control-lg" id="name" placeholder="Ingresa tu nombre">
+                        <input type="text" class="form-control form-control-lg" id="name" placeholder="Ingresa tu nombre"
+                        #nombre="ngModel" name="nombre" [(ngModel)]="user.nombre">
                     </div>
 
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email" class="sr-only">Correo Electrónico</label>
-                        <input type="email" class="form-control form-control-lg" id="email" placeholder="Ingresa tu correo">
+                        <input type="email" class="form-control form-control-lg" id="email" placeholder="Ingresa tu correo"
+                        #nombre="ngModel" name="email" [(ngModel)]="user.email">
                     </div>
 
                     <!-- Password -->
                     <div class="form-group">
                         <label for="password" class="sr-only">Contraseña</label>
-                        <input type="password" class="form-control form-control-lg" id="password" placeholder="Ingresa tu contraseña">
+                        <input type="password" class="form-control form-control-lg" id="password" placeholder="Ingresa tu contraseña"
+                        #nombre="ngModel" name="password" [(ngModel)]="user.password">
                     </div>
 
                     <!-- Submit -->
