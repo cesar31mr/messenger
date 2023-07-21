@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit{
     if(loginForm.value){
       this._userService.login(this.user).subscribe(
         response => {
-          console.log(response);
           this.token = response.jwt;
           this.identity = JSON.stringify(response.user);
 

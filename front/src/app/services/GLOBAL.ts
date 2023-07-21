@@ -10,5 +10,6 @@ export var GLOBAL = {
 
 
 
-    data_msm: `${my_api}/mensajes`
+    data_msm: `${my_api}/mensajes`,
+    send_msm: `${my_api}/mensaje/enviar`
 }

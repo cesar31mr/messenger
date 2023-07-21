@@ -22,12 +22,14 @@ app.get('/', (req, res) => {
 })
 
 io.on("connection", function (socket) {
-    console.log(`Usuario conectado ${socket}`);
+    socket.on('save-message', (new_msm) => {
+        io.emit('new-message', {message: new_msm});
+    })
 });
 
 mongoose.connect('mongodb://localhost:18085/messenger').then(res => {
     console.log('Conectado a la bd');
-    app.listen(port, () => {
+    server.listen(port, () => {
         console.log('Conectado al puerto', port);
     })
 }).catch(err => {

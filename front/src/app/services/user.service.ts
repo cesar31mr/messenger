@@ -26,8 +26,6 @@ export class UserService {
       password: user.password
     }
 
-    console.log(obj);
-
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(GLOBAL.registro, obj, {headers: headers});
    }
@@ -42,24 +40,29 @@ export class UserService {
     return this._http.post(GLOBAL.login, json, {headers: headers});
    }
 
-   get_users(){
+   get_users(): Observable<any>{
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(GLOBAL.get_users, {headers: headers});
    }
 
-   get_user(id: any){
+   get_user(id: any): Observable<any>{
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const tmpUrl = `${GLOBAL.get_user}/${id}`;
     return this._http.get(tmpUrl, {headers: headers});
    }
 
-   get_message(de: any, para: any){
+   get_message(de: any, para: any): Observable<any>{
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const tmpUrl = `${GLOBAL.data_msm}/${de}/${para}`;
     return this._http.get(tmpUrl, {headers: headers});
    }
 
-   getToken(){
+   get_send_msm(msm:any): Observable<any>{
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post(GLOBAL.send_msm, msm, {headers: headers});
+   }
+
+   getToken(): Observable<any>{
     const token = localStorage.getItem('token');
     if(token){
       this.token = token;
@@ -70,7 +73,7 @@ export class UserService {
     return this.token;
    }
 
-   getIdentity(){
+   getIdentity(): Observable<any>{
     const identity = JSON.parse(localStorage.getItem('identity')!);
 
     if(identity){

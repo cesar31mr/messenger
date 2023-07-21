@@ -155,7 +155,6 @@ function get_img(req, res) {
         path_img += "default.png";
     }
 
-    console.log("path:", path_img);
     res.status(200).sendFile(path.resolve(path_img));
 }
 
@@ -172,7 +171,6 @@ function editar_config(req, res) {
             bcrypt.hash(data.password, null, null, (err, hash) => {
                 if (err) res.status(500).send({ message: err });
                 else {
-                    console.log("1");
                     User.findByIdAndUpdate(id, {
                         nombre: data.nombre,
                         password: hash,
@@ -192,7 +190,6 @@ function editar_config(req, res) {
                 }
             });
         } else {
-            console.log("2");
             User.findByIdAndUpdate(id, {
                 nombre: data.nombre,
                 imagen: image_name,
@@ -214,7 +211,6 @@ function editar_config(req, res) {
             bcrypt.hash(data.password, null, null, (err, hash) => {
                 if (err) res.status(500).send({ message: err });
                 else {
-                    console.log("3");
                     User.findByIdAndUpdate(id, {
                         nombre: data.nombre,
                         password: hash,
@@ -233,7 +229,6 @@ function editar_config(req, res) {
                 }
             });
         } else {
-            console.log("4");
             User.findByIdAndUpdate(id, {
                 nombre: data.nombre,
                 telefono: data.telefono,

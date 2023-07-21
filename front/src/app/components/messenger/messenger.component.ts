@@ -1,57 +1,90 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
+import { Message } from 'src/app/models/messagemodel';
+import io from 'socket.io-client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-messenger',
   templateUrl: './messenger.component.html',
-  styleUrls: ['./messenger.component.css']
+  styleUrls: ['./messenger.component.css'],
 })
-export class MessengerComponent implements OnInit{
-
+export class MessengerComponent implements OnInit {
   public usuarios: any;
-  public get_img : string;
+  public get_img: string;
   public user_select: any;
   public mensajes: any;
   public identity: any;
   public de: any;
+  public data_msm: any;
+  public send_message: any;
+  public socket = io('http://localhost:4201');
 
-  constructor(
-    private _userService: UserService
-  ){
+  constructor(private _userService: UserService, private _router: Router) {
     this.get_img = GLOBAL.get_img;
     this.identity = this._userService.getIdentity();
     this.de = this.identity._id;
+    this.data_msm = new Message('', '', '', '');
   }
 
   ngOnInit(): void {
-    this._userService.get_users().subscribe(
-      response => {
-        const res : any = response;
-        this.usuarios = res.users;
-      }, error => {
+    if (this.identity) {
+      this._userService.get_users().subscribe(
+        (response) => {
+          const res: any = response;
+          this.usuarios = res.users;
+        },
+        (error) => {}
+      );
 
-      }
-    )
+      this.socket.on('new-message', this.handleMessageReceivedEvent.bind(this));
+    } else {
+      this._router.navigate(['']);
+    }
   }
 
-  listar(id: any){
+  private handleMessageReceivedEvent(data:any): void {
+    const data_all = {
+      de: data.message.de,
+      para: data.message.para,
+      msm: data.message.msm,
+      createAt: data.message.createAt
+    }
+    this.mensajes.push(data_all);
+  }
+
+  listar(id: any) {
     this._userService.get_user(id).subscribe(
-      response => {
-        const res : any = response;
-        this.user_select = res.user;
+      (response:any) => {
+        this.user_select = response.user;
 
         this._userService.get_message(this.de, id).subscribe(
-          response => {
-            const msm : any = response;
-            this.mensajes = msm.messages;
-          }, error => {
+          (response : any) => {
+            this.mensajes = response.messages;
+          },
+          (error) => {}
+        );
+      },
+      (error) => {}
+    );
+  }
 
-          }
-        )
-      }, error => {
+  onSubmit(msmForm: any) {
+    if (msmForm) {
+      this.send_message = {
+        de: this.de,
+        para: this.user_select._id,
+        msm: this.data_msm.msm,
+      };
 
-      }
-    )
+      this._userService.get_send_msm(this.send_message).subscribe(
+        (response: any) => {
+          this.data_msm = "";
+          this.socket.emit('save-message', response.message);
+        },
+        (error) => {}
+      );
+    }
   }
 }
