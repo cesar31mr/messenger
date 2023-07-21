@@ -42,6 +42,11 @@ export class UserService {
     return this._http.post(this.url + 'login', json, {headers: headers});
    }
 
+   get_users(){
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url + 'get_users', {headers: headers});
+   }
+
    getToken(){
     const token = localStorage.getItem('token');
     if(token){
