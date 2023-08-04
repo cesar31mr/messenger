@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class MessengerComponent implements OnInit {
   public usuarios: any;
   public get_img: string;
-  public user_select: any;
+  public user_select = { _id: -1, nombre: "", imagen: ""};
   public mensajes: any;
   public identity: any;
   public de: any;
@@ -39,6 +39,7 @@ export class MessengerComponent implements OnInit {
       );
 
       this.socket.on('new-message', this.handleMessageReceivedEvent.bind(this));
+      this.socket.on('new-users', this.handleStateEvent.bind(this));
     } else {
       this._router.navigate(['']);
     }
@@ -52,6 +53,10 @@ export class MessengerComponent implements OnInit {
       createAt: data.message.createAt
     }
     this.mensajes.push(data_all);
+  }
+
+  private handleStateEvent(data: any): void{
+    this.usuarios = data.users;
   }
 
   listar(id: any) {

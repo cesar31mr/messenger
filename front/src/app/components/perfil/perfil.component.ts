@@ -101,7 +101,7 @@ export class PerfilComponent implements OnInit {
               this._userService.get_users().subscribe(
                 (response: any) => {
                   this.usuarios = response.users;
-                  this.socket.emit('save-user', this.usuarios);
+                  this.socket.emit('save-users', this.usuarios);
                 }, (error: any) => {
                   console.log('get_users error', error);
                 }
@@ -131,7 +131,7 @@ export class PerfilComponent implements OnInit {
             this._userService.get_users().subscribe(
               (response: any) => {
                 this.usuarios = response.users;
-                this.socket.emit('save-user', this.usuarios);
+                this.socket.emit('save-users', this.usuarios);
               }, (error: any) => {
                 console.log('get_users error 2', error);
               }
