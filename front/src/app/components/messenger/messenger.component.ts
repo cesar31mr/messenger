@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
 import { Message } from 'src/app/models/messagemodel';
@@ -12,6 +12,9 @@ import Push from 'push.js';
   styleUrls: ['./messenger.component.css'],
 })
 export class MessengerComponent implements OnInit {
+
+  @ViewChild('scrolMe', {static:false}) private myScrollContainer?: ElementRef;
+
   public usuarios: any;
   public get_img: string;
   public user_select = { _id: -1, nombre: '', imagen: '' };
@@ -46,6 +49,20 @@ export class MessengerComponent implements OnInit {
     } else {
       this._router.navigate(['']);
     }
+  }
+
+  scrollToBotom():void{
+    try {
+      this.myScrollContainer!.nativeElement.scrollTop = this.myScrollContainer!.nativeElement.scrollHeight;
+    } catch (error) {
+
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    this.scrollToBotom();
   }
 
   private handleMessageReceivedEvent(data: any): void {
@@ -112,6 +129,7 @@ export class MessengerComponent implements OnInit {
           (response: any) => {
             this.data_msm.msm = '';
             this.socket.emit('save-message', response.message);
+            this.scrollToBotom();
           },
           (error) => {}
         );
