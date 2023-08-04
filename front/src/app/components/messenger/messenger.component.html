@@ -1,5 +1,8 @@
 <div class="layout">
 
+    <audio id="palyer" controls style="display: none !important;" src="">
+        <source src="../../../assets/config/alert.mp3">
+    </audio>
     <!-- Navigation -->
     <div class="navigation navbar navbar-light justify-content-center py-xl-7">
 
@@ -13,7 +16,7 @@
 
             <!-- Invisible item to center nav vertically -->
             <li class="nav-item d-none d-xl-block invisible flex-xl-grow-1">
-                <a class="nav-link position-relative p-0 py-xl-3" href="#" title="">
+                <a class="nav-link position-relative p-0 py-xl-3" href="#" title="-">
                     <i class="icon-lg fe-x"></i>
                 </a>
             </li>
@@ -1184,7 +1187,7 @@
             <div class="chat-body">
 
                 <!-- Chat: Header -->
-                <div class="chat-header border-bottom py-4 py-lg-6 px-lg-8">
+                <div *ngIf="user_select.nombre > ''" class="chat-header border-bottom py-4 py-lg-6 px-lg-8">
                     <div class="container-xxl">
 
                         <div class="row align-items-center">
@@ -1358,7 +1361,7 @@
                 <!-- Chat: DropzoneJS container -->
 
                 <!-- Chat: Footer -->
-                <div class="chat-footer border-top py-4 py-lg-6 px-lg-8">
+                <div *ngIf="user_select.nombre > ''" class="chat-footer border-top py-4 py-lg-6 px-lg-8">
                     <div class="container-xxl">
 
                         <form id="chat-id-2-form" #msmForm="ngForm" (ngSubmit)="onSubmit(msmForm)">

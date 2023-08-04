@@ -4,6 +4,7 @@ import { GLOBAL } from 'src/app/services/GLOBAL';
 import { Message } from 'src/app/models/messagemodel';
 import io from 'socket.io-client';
 import { Router } from '@angular/router';
+import Push from 'push.js';
 
 @Component({
   selector: 'app-messenger',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class MessengerComponent implements OnInit {
   public usuarios: any;
   public get_img: string;
-  public user_select = { _id: -1, nombre: "", imagen: ""};
+  public user_select = { _id: -1, nombre: '', imagen: '' };
   public mensajes: any;
   public identity: any;
   public token: any;
@@ -47,27 +48,48 @@ export class MessengerComponent implements OnInit {
     }
   }
 
-  private handleMessageReceivedEvent(data:any): void {
+  private handleMessageReceivedEvent(data: any): void {
     const data_all = {
       de: data.message.de,
       para: data.message.para,
       msm: data.message.msm,
-      createAt: data.message.createAt
-    }
+      createAt: data.message.createAt,
+    };
+
+    this._userService.get_user(data.message.de).subscribe(
+      (response: any) => {
+        if (response.user._id != this.de) {
+          Push.create(response.user.nombre, {
+            body: data.message.msm,
+            icon: this.get_img + response.user.imagen,
+            timeout: 10000,
+            onClick: function () {
+              window.focus();
+              close();
+            },
+          });
+
+          (document.getElementById('player') as any).load();
+          (document.getElementById('player') as any).play();
+        }
+      },
+      (error: any) => {}
+    );
+
     this.mensajes.push(data_all);
   }
 
-  private handleStateEvent(data: any): void{
+  private handleStateEvent(data: any): void {
     this.usuarios = data.users;
   }
 
   listar(id: any) {
     this._userService.get_user(id).subscribe(
-      (response:any) => {
+      (response: any) => {
         this.user_select = response.user;
 
         this._userService.get_message(this.de, id).subscribe(
-          (response : any) => {
+          (response: any) => {
             this.mensajes = response.messages;
           },
           (error) => {}
@@ -85,33 +107,33 @@ export class MessengerComponent implements OnInit {
         msm: this.data_msm.msm,
       };
 
-      this._userService.get_send_msm(this.send_message).subscribe(
-        (response: any) => {
-          this.data_msm = "";
-          this.socket.emit('save-message', response.message);
-        },
-        (error) => {}
-      );
+      if (this.data_msm.msm > '')
+        this._userService.get_send_msm(this.send_message).subscribe(
+          (response: any) => {
+            this.data_msm.msm = '';
+            this.socket.emit('save-message', response.message);
+          },
+          (error) => {}
+        );
     }
   }
 
-  logout(){
-
+  logout() {
     this._userService.desactivar(this.de).subscribe(
       (response: any) => {
         this._userService.get_users().subscribe(
           (res_getusers: any) => {
             this.usuarios = res_getusers.users;
             this.socket.emit('save-users', this.usuarios);
-          }, (err_getUsers: any) => {
-          }
-        )
-      }, (error: any) => {
-      }
+          },
+          (err_getUsers: any) => {}
+        );
+      },
+      (error: any) => {}
     );
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("identity");
+    localStorage.removeItem('token');
+    localStorage.removeItem('identity');
 
     this.identity = '';
     this.token = '';
