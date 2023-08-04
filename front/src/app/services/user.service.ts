@@ -30,6 +30,17 @@ export class UserService {
     return this._http.post(GLOBAL.registro, obj, {headers: headers});
    }
 
+   update_config(user: any): Observable<any>{
+    const fd = new FormData();
+    Object.keys(user).forEach((element: any) => {
+      fd.append(element, user[element]);
+    });
+
+
+    const tmpUrl = `${GLOBAL.editar_config}/${user._id}`;
+    return this._http.put(tmpUrl, fd);
+   }
+
    login(user: any, gettoken: any = null): Observable<any>{
     const json = user;
     if(gettoken != null){
@@ -84,4 +95,6 @@ export class UserService {
 
     return this.identity;
    }
+
+
 }

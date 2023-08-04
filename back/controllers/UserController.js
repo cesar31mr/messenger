@@ -15,6 +15,7 @@ function registro(req, res) {
     user.bio = "";
     user.facebook = "undefined";
     user.twitter = "undefined";
+    user.github = "undefined";
 
     user.estado = true;
 
@@ -162,7 +163,7 @@ function editar_config(req, res) {
     const id = req.params["id"];
     const data = req.body;
 
-    if (req.files) {
+    if (req.files.imagen) {
         let imagen_pat = req.files.imagen.path;
         let name = imagen_pat.split("\\");
         let image_name = name[2];
@@ -179,6 +180,7 @@ function editar_config(req, res) {
                         bio: data.bio,
                         facebook: data.facebook,
                         twitter: data.twitter,
+                        github: data.github,
                         estado: data.estado,
                     })
                         .then((user_data) => {
@@ -197,6 +199,7 @@ function editar_config(req, res) {
                 bio: data.bio,
                 facebook: data.facebook,
                 twitter: data.twitter,
+                github: data.github,
                 estado: data.estado,
             })
                 .then((user_data) => {
@@ -218,6 +221,7 @@ function editar_config(req, res) {
                         bio: data.bio,
                         facebook: data.facebook,
                         twitter: data.twitter,
+                        github: data.github,
                         estado: data.estado,
                     })
                         .then((user_data) => {
@@ -235,6 +239,7 @@ function editar_config(req, res) {
                 bio: data.bio,
                 facebook: data.facebook,
                 twitter: data.twitter,
+                github: data.github,
                 estado: data.estado,
             })
                 .then((user_data) => {

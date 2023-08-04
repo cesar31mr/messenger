@@ -7,6 +7,7 @@ export var GLOBAL = {
     get_users: `${my_api}/get_users`,
     get_user: `${my_api}/get_user`,
     get_img: `${my_api}/usuario/img/`,
+    editar_config: `${my_api}/usuario/editar`,
 
 
 

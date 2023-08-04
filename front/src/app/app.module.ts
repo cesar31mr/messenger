@@ -10,12 +10,14 @@ import { LoginComponent } from './components/login/login.component';
 
 import { appRoutingProviders, routing } from "./app.routing";
 import { MessengerComponent } from './components/messenger/messenger.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 @NgModule({
   declarations: [
     AppComponent,
     RegistroComponent,
     LoginComponent,
-    MessengerComponent
+    MessengerComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ var UserSchema = Schema({
     bio: String,
     facebook: String,
     twitter: String,
+    github: String,
     estado: Boolean
 })
 

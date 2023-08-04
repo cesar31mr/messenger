@@ -24,6 +24,14 @@ app.get('/', (req, res) => {
 io.on("connection", function (socket) {
     socket.on('save-message', (new_msm) => {
         io.emit('new-message', {message: new_msm});
+    });
+
+    socket.on('save-user', (user) => {
+        io.emit('new-user', {user: user});
+    });
+
+    socket.on('save-users', (users) => {
+        io.emit('new-users', {users})
     })
 });
 
