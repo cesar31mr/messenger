@@ -9,14 +9,12 @@ import { User } from "../models/usermodel";
 })
 export class UserService {
 
-  public url : string;
   public token : any;
   public identity : any;
 
   constructor(
     private _http : HttpClient
   ) {
-    this.url = GLOBAL.url
    }
 
    registrar(user: any): Observable<any>{
@@ -71,6 +69,18 @@ export class UserService {
    get_send_msm(msm:any): Observable<any>{
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(GLOBAL.send_msm, msm, {headers: headers});
+   }
+
+   activar(id: any): Observable<any>{
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const tmpUrl = `${GLOBAL.activar_estado}/${id}`;
+    return this._http.put(tmpUrl, {headers: headers});
+   }
+
+   desactivar(id: any): Observable<any>{
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const tmpUrl = `${GLOBAL.desactivar_estado}/${id}`;
+    return this._http.put(tmpUrl, {headers: headers});
    }
 
    getToken(): Observable<any>{

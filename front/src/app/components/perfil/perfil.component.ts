@@ -15,10 +15,9 @@ interface HtmlInputEvent extends Event{
 })
 export class PerfilComponent implements OnInit {
 
-  public socket = io('http://localhost:4201');
+  public socket = io(GLOBAL.url);
 
   public identity: any;
-  public url: string;
   public urlGetImage: string;
   public de: any;
   public datos_config: any = {};
@@ -38,7 +37,6 @@ export class PerfilComponent implements OnInit {
     private _userService : UserService,
     private _router: Router
   ){
-    this.url = GLOBAL.url;
     this.urlGetImage = GLOBAL.get_img;
     this.identity = this._userService.getIdentity();
     this.de = this.identity._id;

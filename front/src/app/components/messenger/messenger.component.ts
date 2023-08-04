@@ -16,14 +16,16 @@ export class MessengerComponent implements OnInit {
   public user_select = { _id: -1, nombre: "", imagen: ""};
   public mensajes: any;
   public identity: any;
+  public token: any;
   public de: any;
   public data_msm: any;
   public send_message: any;
-  public socket = io('http://localhost:4201');
+  public socket = io(GLOBAL.url);
 
   constructor(private _userService: UserService, private _router: Router) {
     this.get_img = GLOBAL.get_img;
     this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
     this.de = this.identity._id;
     this.data_msm = new Message('', '', '', '');
   }
@@ -91,5 +93,29 @@ export class MessengerComponent implements OnInit {
         (error) => {}
       );
     }
+  }
+
+  logout(){
+
+    this._userService.desactivar(this.de).subscribe(
+      (response: any) => {
+        this._userService.get_users().subscribe(
+          (res_getusers: any) => {
+            this.usuarios = res_getusers.users;
+            this.socket.emit('save-users', this.usuarios);
+          }, (err_getUsers: any) => {
+          }
+        )
+      }, (error: any) => {
+      }
+    );
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("identity");
+
+    this.identity = '';
+    this.token = '';
+
+    this._router.navigate(['']);
   }
 }

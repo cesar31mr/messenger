@@ -252,6 +252,34 @@ function editar_config(req, res) {
     }
 }
 
+function activar_estado(req, res){
+    let id = req.params['id'];
+
+    User.findByIdAndUpdate(id, {estado: true}).then(user_update => {
+        if(user_update){
+            res.status(200).send({user:user_update});
+        } else {
+            res.status(500).send({message: 'No se pudo actualizar el estado'});
+        }
+    }).catch(err => {
+        res.status(500).send({message: err});
+    })
+}
+
+function desactivar_estado(req, res){
+    let id = req.params['id'];
+
+    User.findByIdAndUpdate(id, {estado: false}).then(user_update => {
+        if(user_update){
+            res.status(200).send({user:user_update});
+        } else {
+            res.status(500).send({message: 'No se pudo actualizar el estado'});
+        }
+    }).catch(err => {
+        res.status(500).send({message: err});
+    })
+}
+
 module.exports = {
     registro,
     login,
@@ -260,4 +288,6 @@ module.exports = {
     update_foto,
     get_img,
     editar_config,
+    activar_estado,
+    desactivar_estado
 };

@@ -1076,11 +1076,11 @@
                                     <div class="text-center py-6">
                                         <!-- Photo -->
                                         <div class="avatar avatar-xl mb-5">
-                                            <img class="avatar-img" src="assets/images/avatars/12.jpg" alt="">
+                                            <img class="avatar-img" [src]="get_img + identity.imagen" alt="">
                                         </div>
 
-                                        <h5>Matthew Wiggins</h5>
-                                        <p class="text-muted">Bootstrap is an open source toolkit for developing web with HTML.</p>
+                                        <h5>{{identity.nombre}}</h5>
+                                        <p class="text-muted">{{identity.bio}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -1090,21 +1090,12 @@
                             <div class="card mb-6">
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item px-0 py-6">
-                                            <div class="media align-items-center">
-                                                <div class="media-body">
-                                                    <p class="small text-muted mb-0">Country</p>
-                                                    <p>Warsaw, Poland</p>
-                                                </div>
-                                                <i class="text-muted icon-sm fe-globe"></i>
-                                            </div>
-                                        </li>
 
                                         <li class="list-group-item px-0 py-6">
                                             <div class="media align-items-center">
                                                 <div class="media-body">
-                                                    <p class="small text-muted mb-0">Phone</p>
-                                                    <p>+39 02 87 21 43 19</p>
+                                                    <p class="small text-muted mb-0">Teléfono</p>
+                                                    <p>{{identity.telefono}}</p>
                                                 </div>
                                                 <i class="text-muted icon-sm fe-mic"></i>
                                             </div>
@@ -1114,21 +1105,12 @@
                                             <div class="media align-items-center">
                                                 <div class="media-body">
                                                     <p class="small text-muted mb-0">Email</p>
-                                                    <p>anna@gmail.com</p>
+                                                    <p>{{identity.correo}}</p>
                                                 </div>
                                                 <i class="text-muted icon-sm fe-mail"></i>
                                             </div>
                                         </li>
 
-                                        <li class="list-group-item px-0 py-6">
-                                            <div class="media align-items-center">
-                                                <div class="media-body">
-                                                    <p class="small text-muted mb-0">Time</p>
-                                                    <p>10:03 am</p>
-                                                </div>
-                                                <i class="text-muted icon-sm fe-clock"></i>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -1139,7 +1121,7 @@
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item px-0 py-6">
-                                            <a href="#" class="media text-muted">
+                                            <a href="{{identity.twitter}}" class="media text-muted">
                                                 <div class="media-body align-self-center">
                                                     Twitter
                                                 </div>
@@ -1148,7 +1130,7 @@
                                         </li>
 
                                         <li class="list-group-item px-0 py-6">
-                                            <a href="#" class="media text-muted">
+                                            <a href="{{identity.facebook}}" class="media text-muted">
                                                 <div class="media-body align-self-center">
                                                 Facebook
                                                 </div>
@@ -1157,7 +1139,7 @@
                                         </li>
 
                                         <li class="list-group-item px-0 py-6">
-                                            <a href="#" class="media text-muted">
+                                            <a href="{{identity.github}}" class="media text-muted">
                                                 <div class="media-body align-self-center">
                                                     Github
                                                 </div>
@@ -1172,16 +1154,8 @@
                             <div class="form-row">
                                 <div class="col">
                                     <!-- Button -->
-                                    <button type="button" class="btn btn-lg btn-block btn-basic d-flex align-items-center">
-                                        Settings
-                                        <span class="fe-settings ml-auto"></span>
-                                    </button>
-                                </div>
-
-                                <div class="col">
-                                    <!-- Button -->
-                                    <button type="button" class="btn btn-lg btn-block btn-basic d-flex align-items-center">
-                                        Logout
+                                    <button type="button" (click)="logout()" class="btn btn-danger btn-lg btn-block btn-basic d-flex align-items-center">
+                                        Cerrar Sesión
                                         <span class="fe-log-out ml-auto"></span>
                                     </button>
                                 </div>
