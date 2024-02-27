@@ -1,7 +1,7 @@
-const my_api = 'http://127.0.0.1:4201/api';
+const my_api = `http://${process.env["API_HOST"]}:${process.env["API_PORT"]}/api`;
 
 export var GLOBAL = {
-    url: 'http://127.0.0.1:4201',
+    url: `http://${process.env["API_HOST"]}:${process.env["API_PORT"]}`,
     registro: `${my_api}/registro`,
     login: `${my_api}/login`,
     get_users: `${my_api}/get_users`,

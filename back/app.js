@@ -9,10 +9,12 @@ const message_routes = require('./routes/message_route');
 
 const app = express();
 const server = require("http").createServer(app);
+
 const io = require("socket.io")(server, {
     cors: {
-        origin: 'http://localhost:4200'
+        origin: ['http://localhost:8267', 'http://localhost:4200', 'http://front:80' , 'http://172.30.13.182:8267']
     }
+    
   });
 
 app.use(cors());
@@ -35,7 +37,7 @@ io.on("connection", function (socket) {
     })
 });
 
-mongoose.connect('mongodb://localhost:18085/messenger').then(res => {
+mongoose.connect('mongodb://bd:27017/messenger').then(res => {
     console.log('Conectado a la bd');
     server.listen(port, () => {
         console.log('Conectado al puerto', port);
